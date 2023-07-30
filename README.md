@@ -17,7 +17,7 @@ tags:
 </p>
 
 ## 介绍
-ChatGLM**2**-6B-32K在[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文。具体地，我们基于[位置插值](https://arxiv.org/abs/2306.15595)（Positional Interpolation）的方法对位置编码进行了更新，并在对话阶段使用 32K 的上下文长度训练。
+ChatGLM**2**-6B-32K在[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文。具体地，我们基于[位置插值](https://arxiv.org/abs/2306.15595)（Positional Interpolation）的方法对位置编码进行了更新，并在对话阶段使用 32K 的上下文长度训练。在实际的使用中，如果您面临的上下文长度基本在8K以内，我们推荐使用[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)；如果您需要处理超过8K的上下文长度，我们推荐使用ChatGLM2-6B-32K。
 
 ChatGLM2-6B-32K是开源中英双语对话模型 [ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B) 的第二代版本，在保留了初代模型对话流畅、部署门槛较低等众多优秀特性的基础之上，ChatGLM**2**-6B-32k 引入了如下新特性：
 
@@ -26,7 +26,7 @@ ChatGLM2-6B-32K是开源中英双语对话模型 [ChatGLM-6B](https://github.com
 3. **更高效的推理**：基于 [Multi-Query Attention](http://arxiv.org/abs/1911.02150) 技术，ChatGLM2-6B-32K 有更高效的推理速度和更低的显存占用：在官方的模型实现下，推理速度相比初代提升了 42%，INT4 量化下，6G 显存支持的对话长度由 1K 提升到了 8K。
 4. **更开放的协议**：ChatGLM2-6B-32K 权重对学术研究**完全开放**，在填写[问卷](https://open.bigmodel.cn/mla/form)进行登记后**亦允许免费商业使用**。
 
-The ChatGLM**2**-6B-32K further strengthens the ability to understand long texts based on the [ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b), and can better handle up to 32K context length. Specifically, we have updated the position encoding based on the method of [Positional Interpolation](https://arxiv.org/abs/2306.15595), and trained with a 32K context length during the dialogue alignment.
+The ChatGLM**2**-6B-32K further strengthens the ability to understand long texts based on the [ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b), and can better handle up to 32K context length. Specifically, we have updated the position encoding based on the method of [Positional Interpolation](https://arxiv.org/abs/2306.15595), and trained with a 32K context length during the dialogue alignment. In practical use, if the context length you are dealing with is generally within 8K, we recommend using [ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b); if you need to handle a context length exceeding 8K, we recommend using ChatGLM2-6B-32K.
 
 ChatGLM2-6B-32K is the second-generation version of the open-source bilingual (Chinese-English) chat model [ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B). It retains the smooth conversation flow and low deployment threshold of the first-generation model, while introducing the following new features:
 
