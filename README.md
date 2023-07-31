@@ -17,9 +17,9 @@ tags:
 </p>
 
 ## 介绍
-ChatGLM**2**-6B-32K在[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文。具体地，我们基于[位置插值](https://arxiv.org/abs/2306.15595)（Positional Interpolation）的方法对位置编码进行了更新，并在对话阶段使用 32K 的上下文长度训练。在实际的使用中，如果您面临的上下文长度基本在8K以内，我们推荐使用[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)；如果您需要处理超过8K的上下文长度，我们推荐使用ChatGLM2-6B-32K。
+ChatGLM**2**-6B-32K在[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文。具体地，我们基于[位置插值](https://arxiv.org/abs/2306.15595)（Positional Interpolation）的方法对位置编码进行了更新，并在对话阶段使用 32K 的上下文长度训练。在实际的使用中，如果您面临的上下文长度基本在 **8K 以内**，我们推荐使用[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)；如果您需要处理**超过 8K** 的上下文长度，我们推荐使用ChatGLM2-6B-32K。
 
-ChatGLM2-6B-32K是开源中英双语对话模型 [ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B) 的第二代版本，在保留了初代模型对话流畅、部署门槛较低等众多优秀特性的基础之上，ChatGLM**2**-6B-32k 引入了如下新特性：
+ChatGLM**2**-6B-32K是开源中英双语对话模型 [ChatGLM2-6B](https://github.com/THUDM/ChatGLM2-6B) 的加长版本，在保留了初代模型对话流畅、部署门槛较低等众多优秀特性的基础之上，ChatGLM**2**-6B-32k 引入了如下新特性：
 
 1. **更强大的性能**：基于 ChatGLM 初代模型的开发经验，我们全面升级了 ChatGLM2-6B-32K 的基座模型。ChatGLM2-6B-32K 使用了 [GLM](https://github.com/THUDM/GLM) 的混合目标函数，经过了 1.4T 中英标识符的预训练与人类偏好对齐训练。
 2. **更长的上下文**：基于 [FlashAttention](https://github.com/HazyResearch/flash-attention) 技术，我们将基座模型的上下文长度（Context Length）由 ChatGLM-6B 的 2K 扩展到了 32K，并在对话阶段使用 32K 的上下文长度训练，允许更多轮次的对话。
