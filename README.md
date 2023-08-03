@@ -15,6 +15,7 @@ tags:
 <p align="center">
     👋 Join our <a href="https://join.slack.com/t/chatglm/shared_invite/zt-1y7pqoloy-9b1g6T6JjA8J0KxvUjbwJw" target="_blank">Slack</a> and <a href="https://github.com/THUDM/ChatGLM-6B/blob/main/resources/WECHAT.md" target="_blank">WeChat</a>
 </p>
+
 ## 更新/Update
 
 - 我们优化了KV Cache的存储方式，减少了显存碎片的产生。基于优化后的代码，模型可以在约**20G显存**的情况下处理32K长度的上下文（FP/BF16格式）。
