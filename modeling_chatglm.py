@@ -413,7 +413,10 @@ class SelfAttention(torch.nn.Module):
             key_layer = torch.cat((cache_k, key_layer), dim=0)
             value_layer = torch.cat((cache_v, value_layer), dim=0)
         if use_cache:
-            kv_cache = (key_layer, value_layer)
+            if kv_cache is None:
+                kv_cache = torch.cat((key_layer.unsqueeze(0).unsqueeze(0), value_layer.unsqueeze(0).unsqueeze(0)), dim=1)
+            else:
+                kv_cache = (key_layer, value_layer)
         else:
             kv_cache = None
 
@@ -612,12 +615,8 @@ class GLMTransformer(torch.nn.Module):
         if not kv_caches:
             kv_caches = [None for _ in range(self.num_layers)]
         presents = () if use_cache else None
-        if self.gradient_checkpointing and self.training:
-            if use_cache:
-                logger.warning_once(
-                    "`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`..."
-                )
-                use_cache = False
+        if self.training:
+            use_cache = False
 
         all_self_attentions = None
         all_hidden_states = () if output_hidden_states else None
@@ -645,7 +644,15 @@ class GLMTransformer(torch.nn.Module):
                 )
             hidden_states, kv_cache = layer_ret
             if use_cache:
-                presents = presents + (kv_cache,)
+                # token by token decoding, use tuple format
+                if kv_caches[0] is not None:
+                    presents = presents + (kv_cache,)
+                # prefilling in decoding, use tensor format to save cuda memory
+                else:
+                    if len(presents) == 0:
+                        presents = kv_cache
+                    else:
+                        presents = torch.cat((presents, kv_cache), dim=0)
 
         if output_hidden_states:
             all_hidden_states = all_hidden_states + (hidden_states,)
@@ -830,6 +837,12 @@ class ChatGLMModel(ChatGLMPreTrainedModel):
             inputs_embeds, full_attention_mask, rotary_pos_emb=rotary_pos_emb,
             kv_caches=past_key_values, use_cache=use_cache, output_hidden_states=output_hidden_states
         )
+        if presents is not None and type(presents) is torch.Tensor:
+            presents = presents.split(1, dim=0)
+            presents = list(presents)
+            presents = [list(x.squeeze(0).split(1, dim=0)) for x in presents]
+            presents = [tuple([x.squeeze(0) for x in y]) for y in presents]
+            presents = tuple(presents)
 
         if not return_dict:
             return tuple(v for v in [hidden_states, presents, all_hidden_states, all_self_attentions] if v is not None)

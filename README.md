@@ -15,8 +15,13 @@ tags:
 <p align="center">
     👋 Join our <a href="https://join.slack.com/t/chatglm/shared_invite/zt-1y7pqoloy-9b1g6T6JjA8J0KxvUjbwJw" target="_blank">Slack</a> and <a href="https://github.com/THUDM/ChatGLM-6B/blob/main/resources/WECHAT.md" target="_blank">WeChat</a>
 </p>
+## 更新/Update
+
+- 我们优化了KV Cache的存储方式，减少了显存碎片的产生。基于优化后的代码，模型可以在约**20G显存**的情况下处理32K长度的上下文（FP/BF16格式）。
+- We have optimized the storage method of the KV Cache, reducing the generation of memory fragmentation. Based on the optimized code, the model can process a context length of 32K under approximately **20G** of memory (FP/BF16 format).
 
 ## 介绍
+
 ChatGLM**2**-6B-32K在[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文。具体地，我们基于[位置插值](https://arxiv.org/abs/2306.15595)（Positional Interpolation）的方法对位置编码进行了更新，并在对话阶段使用 32K 的上下文长度训练。在实际的使用中，如果您面临的上下文长度基本在 **8K 以内**，我们推荐使用[ChatGLM2-6B](https://huggingface.co/THUDM/chatglm2-6b)；如果您需要处理**超过 8K** 的上下文长度，我们推荐使用ChatGLM2-6B-32K。
 
 ChatGLM**2**-6B-32K是开源中英双语对话模型 [ChatGLM2-6B](https://github.com/THUDM/ChatGLM2-6B) 的加长版本，在保留了初代模型对话流畅、部署门槛较低等众多优秀特性的基础之上，ChatGLM**2**-6B-32k 引入了如下新特性：
